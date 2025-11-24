@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import { RichTextEditor } from '@/components/admin/RichTextEditor';
 
 interface Post {
   id: number;
@@ -153,7 +154,7 @@ export function PostDialog({ open, onOpenChange, post, onSuccess }: PostDialogPr
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{post ? 'Edit Post' : 'Create New Post'}</DialogTitle>
           <DialogDescription>
@@ -200,13 +201,10 @@ export function PostDialog({ open, onOpenChange, post, onSuccess }: PostDialogPr
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="content">Content *</Label>
-            <Textarea
-              id="content"
-              value={formData.content}
-              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-              rows={6}
-              required
+            <Label htmlFor="content">Content * (Rich Text Editor)</Label>
+            <RichTextEditor
+              content={formData.content}
+              onChange={(content) => setFormData({ ...formData, content })}
             />
           </div>
 
