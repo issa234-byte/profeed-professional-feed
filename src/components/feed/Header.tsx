@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Bell, Search, Menu, User, MapPin } from 'lucide-react';
+import { Bell, Search, Menu, User, MapPin, Settings } from 'lucide-react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -15,14 +16,14 @@ export default function Header() {
           <Button variant="ghost" size="icon" className="md:hidden">
             <Menu className="h-5 w-5" />
           </Button>
-          <div className="flex items-center gap-2 font-bold text-xl">
+          <Link href="/" className="flex items-center gap-2 font-bold text-xl">
             <div className="h-9 w-9 bg-gradient-to-br from-amber-500 via-orange-500 to-red-600 rounded-lg flex items-center justify-center text-white shadow-lg">
               <MapPin className="h-5 w-5" />
             </div>
             <div className="hidden md:block">
               <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">Tamu Diaries</span>
             </div>
-          </div>
+          </Link>
           
           <nav className="hidden md:flex items-center ml-6 space-x-1">
             <Button variant="ghost" className="text-zinc-600 dark:text-zinc-300 font-medium hover:text-orange-600 dark:hover:text-orange-400">All</Button>
@@ -44,6 +45,12 @@ export default function Header() {
           </div>
           
           <ModeToggle />
+          
+          <Link href="/admin">
+            <Button variant="ghost" size="icon" className="rounded-full" title="Admin Panel">
+              <Settings className="h-5 w-5 text-zinc-600 dark:text-zinc-300" />
+            </Button>
+          </Link>
           
           <Button variant="ghost" size="icon" className="relative rounded-full">
             <Bell className="h-5 w-5 text-zinc-600 dark:text-zinc-300" />

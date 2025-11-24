@@ -4,6 +4,7 @@ import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
 import Script from "next/script";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Tamu Diaries - Pan-African News, Jobs & Articles",
@@ -36,6 +37,7 @@ export default function RootLayout({
             data-custom-data='{"appName": "YourApp", "version": "1.0.0", "greeting": "hi"}'
           />
           {children}
+          <Toaster position="top-right" richColors />
           <VisualEditsMessenger />
         </ThemeProvider>
       </body>
