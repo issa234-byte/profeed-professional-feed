@@ -60,90 +60,101 @@ export default function FeedItem({ item, isActive }: FeedItemProps) {
         
         <div className={`absolute inset-0 bg-gradient-to-br ${getTypeGradient()} opacity-5 rounded-3xl`} />
 
-        {/* Image Section with Glassmorphism Overlay */}
-        <div className="relative h-1/2 w-full overflow-hidden rounded-t-3xl">
+        {/* Image Section - Enhanced Visibility */}
+        <div className="relative h-3/5 w-full overflow-hidden rounded-t-3xl">
+          {/* Decorative frame border */}
+          <div className={`absolute inset-0 bg-gradient-to-br ${getTypeGradient()} opacity-30 blur-2xl -z-10`} />
+          <div className="absolute inset-0 ring-2 ring-white/20 dark:ring-white/10 rounded-t-3xl pointer-events-none z-10" />
+          
           <motion.div
-            className="absolute inset-0"
-            whileHover={{ scale: 1.05 }}
+            className="absolute inset-0 p-3"
+            whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.6 }}
           >
-            <Image
-              src={item.imageUrl}
-              alt={item.title}
-              fill
-              className="object-cover"
-              priority={isActive}
-            />
+            {/* Inner frame with better contrast */}
+            <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/10 dark:ring-white/10">
+              <Image
+                src={item.imageUrl}
+                alt={item.title}
+                fill
+                className="object-cover"
+                priority={isActive}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+              />
+              
+              {/* Lighter gradient overlays for better image visibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className={`absolute inset-0 bg-gradient-to-br ${getTypeGradient()} opacity-10 mix-blend-overlay`} />
+              
+              {/* Vignette effect for focus */}
+              <div className="absolute inset-0 shadow-[inset_0_0_80px_rgba(0,0,0,0.3)]" />
+            </div>
           </motion.div>
-          
-          {/* Gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-          <div className={`absolute inset-0 bg-gradient-to-br ${getTypeGradient()} opacity-20 mix-blend-overlay`} />
           
           {/* Floating badges with glassmorphism */}
           <motion.div 
-            className="absolute top-4 left-4 flex flex-wrap gap-2"
+            className="absolute top-7 left-7 flex flex-wrap gap-2 z-20"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <Badge className={`glass flex gap-1.5 items-center px-4 py-2 border-0 backdrop-blur-xl bg-gradient-to-r ${getTypeGradient()} text-white font-bold shadow-lg hover:shadow-2xl transition-all`}>
+            <Badge className={`glass flex gap-1.5 items-center px-4 py-2 border-0 backdrop-blur-xl bg-gradient-to-r ${getTypeGradient()} text-white font-bold shadow-2xl hover:shadow-3xl transition-all`}>
               {getTypeIcon()}
               <span className="text-sm">{getTypeLabel()}</span>
               <Sparkles className="h-3 w-3 ml-1" />
             </Badge>
             {item.region && (
-              <Badge className="glass flex gap-1 items-center px-3 py-2 bg-white/20 text-white border-white/30 backdrop-blur-xl font-semibold">
+              <Badge className="glass flex gap-1 items-center px-3 py-2 bg-white/30 dark:bg-black/30 text-white border-white/40 dark:border-white/20 backdrop-blur-xl font-semibold shadow-xl">
                 <MapPin className="h-3 w-3" />
                 {item.region}
               </Badge>
             )}
             {item.featured && (
-              <Badge className="glass flex gap-1 items-center px-3 py-2 bg-yellow-400/30 text-yellow-100 border-yellow-400/30 backdrop-blur-xl font-semibold animate-pulse">
+              <Badge className="glass flex gap-1 items-center px-3 py-2 bg-yellow-400/40 text-yellow-50 border-yellow-400/40 backdrop-blur-xl font-semibold animate-pulse shadow-xl">
                 <TrendingUp className="h-3 w-3" />
                 Trending
               </Badge>
             )}
           </motion.div>
 
-          {/* Content overlay */}
+          {/* Content overlay - positioned at bottom with glass background */}
           <motion.div 
-            className="absolute bottom-0 left-0 w-full p-6 md:p-8 text-white"
+            className="absolute bottom-3 left-3 right-3 p-6 md:p-8 text-white rounded-2xl glass backdrop-blur-2xl bg-gradient-to-br from-black/70 via-black/60 to-black/70 border border-white/20 shadow-2xl z-20"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
             <div className="flex items-center gap-3 mb-4">
-              <Avatar className="h-14 w-14 border-3 border-white/40 ring-4 ring-white/20 backdrop-blur-sm">
+              <Avatar className="h-12 w-12 border-2 border-white/50 ring-4 ring-white/20 backdrop-blur-sm shadow-lg">
                 <AvatarImage src={item.metadata.avatarUrl} />
                 <AvatarFallback className={`bg-gradient-to-br ${getTypeGradient()} text-white font-bold text-lg`}>
                   {item.metadata.source?.charAt(0)}
                 </AvatarFallback>
               </Avatar>
               <div>
-                <p className="font-bold text-base md:text-lg">{item.metadata.source}</p>
-                <p className="text-sm md:text-base text-white/90 flex items-center gap-2">
+                <p className="font-bold text-sm md:text-base text-white/95">{item.metadata.source}</p>
+                <p className="text-xs md:text-sm text-white/80 flex items-center gap-2">
                   <span className="inline-block h-1.5 w-1.5 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-pulse"></span>
                   {item.postedAt} • {item.metadata.secondary}
                 </p>
               </div>
             </div>
-            <h2 className="text-3xl md:text-5xl font-black leading-tight mb-3 line-clamp-2 drop-shadow-2xl">
+            <h2 className="text-2xl md:text-4xl font-black leading-tight mb-2 line-clamp-2 drop-shadow-2xl text-white">
               {item.title}
             </h2>
-            <p className={`text-sm md:text-base font-bold uppercase tracking-widest bg-gradient-to-r ${getTypeGradient()} bg-clip-text text-transparent filter drop-shadow-lg`}>
+            <p className={`text-xs md:text-sm font-bold uppercase tracking-widest bg-gradient-to-r ${getTypeGradient()} bg-clip-text text-transparent filter drop-shadow-lg`}>
               {item.category}
             </p>
           </motion.div>
 
           {/* Shimmer effect */}
-          <div className="absolute inset-0 shimmer opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+          <div className="absolute inset-0 shimmer opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-30" />
         </div>
 
         {/* Content Section with Glassmorphism */}
         <CardContent className="flex-1 p-6 md:p-8 flex flex-col justify-between glass rounded-b-3xl backdrop-blur-2xl">
           <div>
-            <p className="text-foreground/90 text-base md:text-lg leading-relaxed line-clamp-3 md:line-clamp-4 mb-6 font-medium">
+            <p className="text-foreground/90 text-base md:text-lg leading-relaxed line-clamp-2 md:line-clamp-3 mb-6 font-medium">
               {item.description}
             </p>
             
