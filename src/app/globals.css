@@ -1,3 +1,4 @@
+/* Updated: 2025-11-25T13:15:06.825Z */
 /* Updated: 2025-11-24T07:29:28.630Z */
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -45,7 +46,7 @@
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 1rem;
   --background: oklch(0.99 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -128,6 +129,81 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  /* Gen Z Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .dark .glass {
+    background: rgba(18, 18, 18, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Gen Z Gradient Text */
+  .gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 8s ease infinite;
+    background-size: 200% 200%;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Gen Z Neon Glow */
+  .neon-glow {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.6),
+                0 0 40px rgba(102, 126, 234, 0.4),
+                0 0 60px rgba(102, 126, 234, 0.2);
+    animation: neon-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes neon-pulse {
+    0%, 100% { 
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.6),
+                  0 0 40px rgba(102, 126, 234, 0.4),
+                  0 0 60px rgba(102, 126, 234, 0.2);
+    }
+    50% { 
+      box-shadow: 0 0 30px rgba(102, 126, 234, 0.8),
+                  0 0 60px rgba(102, 126, 234, 0.6),
+                  0 0 90px rgba(102, 126, 234, 0.4);
+    }
+  }
+
+  /* Floating Animation */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* Shimmer Effect */
+  .shimmer {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.3) 50%, 
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
   }
 
   .prose {
